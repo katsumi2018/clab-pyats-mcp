@@ -29,5 +29,5 @@ topology:
     - endpoints: [ "ceos1:eth1", "cjunosevo1:et-0/0/0" ]
 
 mgmt:
-  network: ceos-rf-mgmt
+  network: clab-mgmt
   ipv4-subnet: 172.20.20.0/24
