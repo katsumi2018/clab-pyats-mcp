@@ -1,0 +1,33 @@
+name: pyats-mcp
+
+topology:
+  nodes:
+    ceos1:
+      kind: arista_ceos
+      image: ceos:4.36.0.1F
+      mgmt-ipv4: 172.20.20.11
+
+    cjunosevo1:
+      kind: juniper_cjunosevolved
+      image: cjunosevolved:25.4R1.13-EVO
+      mgmt-ipv4: 172.20.20.12
+      env:
+        # To start the BT flavor, change "BX" to "BT" below
+        CPTX_COSIM: "BX"
+
+    mcp:
+      kind: linux
+      image: pyats-mcp-proxy:latest
+      mgmt-ipv4: 172.20.20.100
+      ports:
+        - 8080:8080
+      binds:
+        - ./testbed.yaml:/app/testbed.yaml:ro
+        - ./.env:/app/.env:ro
+
+  links:
+    - endpoints: [ "ceos1:eth1", "cjunosevo1:et-0/0/0" ]
+
+mgmt:
+  network: ceos-rf-mgmt
+  ipv4-subnet: 172.20.20.0/24

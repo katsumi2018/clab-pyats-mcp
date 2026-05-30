@@ -1,0 +1,43 @@
+devices:
+  ceos1:
+    alias: ceos1
+    type: router
+    os: eos
+    platform: ceos
+    credentials:
+      default:
+        username: admin
+        password: admin
+      enable:
+        password: admin
+    connections:
+      cli:
+        protocol: ssh
+        ip: 172.20.20.11
+        port: 22
+        arguments:
+          connection_timeout: 120
+
+  cjunosevo1:
+    alias: cjunosevo1
+    type: router
+    os: junos
+    platform: junos
+    credentials:
+      default:
+        username: admin
+        password: admin@123
+    connections:
+      cli:
+        protocol: ssh
+        ip: 172.20.20.12
+        port: 22
+        arguments:
+          connection_timeout: 180
+          init_exec_commands:
+            - set cli screen-length 0
+            - set cli screen-width 0
+            
+        settings:
+          EXEC_TIMEOUT: 180
+          CONFIG_TIMEOUT: 180
